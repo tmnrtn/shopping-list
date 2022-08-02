@@ -18,7 +18,8 @@ import INGREDIENTS from './Ingredients.json'
 export class GroceryService {
 
 
-  apiURL = 'http://localhost:4200/api/v2/sync/';
+  //apiURL = 'http://localhost:4200/api/v2/sync/';
+  apiURL = 'http://www.paprikaapp.com/api/v2/sync/';
   bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDI1MTYxNDQsImVtYWlsIjoidG1ucnRuQGdtYWlsLmNvbSJ9.zwNe471dQeZJh5MuB9IvWb8i6CspEQviowgCU038aTE';
 
   httpOptions = {
