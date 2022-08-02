@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+    "target": "https://www.paprikaapp.com",
+    "secure": false
+    }
+    }
+

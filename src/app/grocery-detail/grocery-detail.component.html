@@ -1,0 +1,26 @@
+
+<nav>
+  <a routerLink="/groceries">Groceries</a>
+</nav>
+<div *ngIf="grocery">
+
+    <h2>{{grocery.name | uppercase}} Details</h2>
+    <div>
+      <label for="grocery-name">Name: </label>
+      <input id="grocery-name" [(ngModel)]="grocery.name" placeholder="name">
+    </div>
+    <div>
+      <label for="grocery-purchased">Purchased: </label>
+      <input id="grocery-purchased" [(ngModel)]="grocery.purchased" placeholder="purchased">
+    </div>
+    <div>
+      <label for="grocery-aisle">Aisle: </label>
+      <input id="grocery-aisle" [(ngModel)]="grocery.aisle" placeholder="aisle">
+    </div>
+    <div>
+      <label for="grocery-quantity">Quantity: </label>
+      <input id="grocery-quantity" [(ngModel)]="grocery.quantity" placeholder="quantity">
+    </div>
+  
+  </div>
+  <button #updateButton (click)="updateGrocery()" >Update</button>

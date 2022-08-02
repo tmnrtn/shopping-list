@@ -1,0 +1,39 @@
+
+        <mat-label>Search</mat-label>
+        <input #addName type="text" placeholder="Add Item"  matInput [formControl]="myControl"
+            [matAutocomplete]="auto" (input)="search(addName.value)">
+            <button (click)="addItem(addName.value); addName.value = ''">Add</button>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of searchRes$ | async" [value]="option">
+                {{option.name[0]}}
+            </mat-option>
+        </mat-autocomplete>
+
+
+
+<!-- <input type="text" id="search-box" #addName (input)="search(addName.value)">
+<button (click)="addItem(addName.value); addName.value = ''">Add</button>
+<ul class="search-result">
+    <li *ngFor="let ing of searchRes$ | async" >
+      <div>
+        {{ing.name}}<button (click)="addItem(ing.name[0]); addName.value = ''">Add</button>
+      </div>
+    </li>
+  </ul> -->
+
+<table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let grocery"> <a routerLink="/grocerydetail/{{grocery.uid}}">{{grocery.name}}</a></td>
+    </ng-container>
+    <ng-container matColumnDef="aisle">
+        <th mat-header-cell *matHeaderCellDef>Aisle</th>
+        <td mat-cell *matCellDef="let grocery"> {{grocery.aisle}} </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let grocery"><button (click)="deleteItem(grocery)">Delete</button></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+</table>
