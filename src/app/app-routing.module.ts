@@ -4,8 +4,7 @@ import { GroceriesComponent } from './groceries/groceries.component';
 import { GroceryDetailComponent } from './grocery-detail/grocery-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/groceries', pathMatch: 'full' },
-  { path: 'groceries', component: GroceriesComponent },
+  { path: '', component: GroceriesComponent },
   { path: 'grocerydetail/:uid', component: GroceryDetailComponent}
 ];
 

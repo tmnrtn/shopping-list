@@ -1,7 +1,4 @@
 
-<nav>
-  <a routerLink="/groceries">Groceries</a>
-</nav>
 <div *ngIf="grocery">
 
     <h2>{{grocery.name | uppercase}} Details</h2>
@@ -24,3 +21,4 @@
   
   </div>
   <button #updateButton (click)="updateGrocery()" >Update</button>
+  <button #updateButton (click)="goBack()" >Cancel</button>

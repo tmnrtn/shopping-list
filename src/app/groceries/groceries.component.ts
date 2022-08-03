@@ -23,7 +23,7 @@ export class GroceriesComponent implements OnInit {
   searchRes$!: Observable<ingredient[]>;
   private searchTerms = new Subject<string>();
 
-  columnsToDisplay = ['name', 'aisle', 'delete'];
+  columnsToDisplay = ['name', 'aisle', 'purchased', 'delete'];
   dataSource = new MatTableDataSource<Grocery>();
 
   myControl = new FormControl('');

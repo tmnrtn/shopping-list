@@ -1,5 +1,3 @@
-
-        <mat-label>Search</mat-label>
         <input #addName type="text" placeholder="Add Item"  matInput [formControl]="myControl"
             [matAutocomplete]="auto" (input)="search(addName.value)">
             <button (click)="addItem(addName.value); addName.value = ''">Add</button>
@@ -29,6 +27,10 @@
     <ng-container matColumnDef="aisle">
         <th mat-header-cell *matHeaderCellDef>Aisle</th>
         <td mat-cell *matCellDef="let grocery"> {{grocery.aisle}} </td>
+    </ng-container>
+    <ng-container matColumnDef="purchased">
+        <th mat-header-cell *matHeaderCellDef>Purchased</th>
+        <td mat-cell *matCellDef="let grocery"> {{grocery.purchased}} </td>
     </ng-container>
     <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef>Delete</th>

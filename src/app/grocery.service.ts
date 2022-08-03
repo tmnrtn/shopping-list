@@ -117,7 +117,7 @@ export class GroceryService {
   SearchIngredients(searchStr:string, exactSearch:boolean = false) : ingredient[] {
     searchStr = searchStr.toLowerCase();
     let res : ingredient[] = [];
-    if(searchStr.length > 2) {
+    if(searchStr.length > 0) {
     let exact = this.ingredients.filter(i=> i.name.find(n => n.toLowerCase() == searchStr) !== undefined);
     let exactVar = this.ingredients.filter(i=>i.variations.length > 0 && i.variations.find(n => typeof n == 'string' && n.toLowerCase() == searchStr) !== undefined);
     
@@ -125,10 +125,10 @@ export class GroceryService {
     res = res.concat(exactVar.filter(x => !res.includes(x)));
 
     if(!exactSearch) {
-      let startsWith = this.ingredients.filter(i=> i.name.find(n => n.toLowerCase().startsWith(searchStr)) !== undefined);
-      let startsWithVar = this.ingredients.filter(i=> i.variations.find(n => typeof n == 'string' &&  n.toLowerCase().startsWith(searchStr)) !== undefined);
-      let contains = this.ingredients.filter(i=> i.name.find(n => n.toLowerCase().includes(searchStr)) !== undefined);
-      let containsVar = this.ingredients.filter(i=> i.variations.find(n => typeof n == 'string' &&  n.toLowerCase().includes(searchStr)) !== undefined);
+      let startsWith = this.ingredients.filter(i=> i.name.find(n => n.toLowerCase().startsWith(searchStr)) !== undefined).sort(function(a, b){return a.name[0].length - b.name[0].length});
+      let startsWithVar = this.ingredients.filter(i=> i.variations.find(n => typeof n == 'string' &&  n.toLowerCase().startsWith(searchStr)) !== undefined).sort(function(a, b){return a.name[0].length - b.name[0].length});
+      let contains = this.ingredients.filter(i=> i.name.find(n => n.toLowerCase().includes(searchStr)) !== undefined).sort(function(a, b){return a.name[0].length - b.name[0].length});
+      let containsVar = this.ingredients.filter(i=> i.variations.find(n => typeof n == 'string' &&  n.toLowerCase().includes(searchStr)) !== undefined).sort(function(a, b){return a.name[0].length - b.name[0].length});
 
       res = res.concat(startsWith.filter(x => !res.includes(x)))
       res = res.concat(startsWithVar.filter(x => !res.includes(x)))
