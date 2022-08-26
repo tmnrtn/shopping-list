@@ -94,8 +94,11 @@ export class GroceriesComponent implements OnInit {
 
   changeSuperMarket(): void {
     if (this.selectedSearchURL.provider != "None") {
+      if (!this.columnsToDisplay.includes("view"))
+      {
       this.columnsToDisplay.push("view");
       this.dataSource.data = this.groceries;
+      }
     }
     else {
       this.columnsToDisplay = this.columnsToDisplay.filter(c => c != "view");
