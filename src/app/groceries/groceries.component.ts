@@ -11,6 +11,7 @@ import {FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Grocery } from '../grocery';
 import { GroceryService } from '../grocery.service';
 import { ingredient } from '../ingredient';
+import { SearchURL, URLS } from '../searchUrls';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class GroceriesComponent implements OnInit {
   searchRes$!: Observable<ingredient[]>;
   private searchTerms = new Subject<string>();
 
-  columnsToDisplay = ['ingredient', 'aisle', 'purchased', 'delete'];
+  columnsToDisplay = ['ingredient', 'aisle', 'purchased', 'delete', 'view'];
   dataSource = new MatTableDataSource<Grocery>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -34,6 +35,9 @@ export class GroceriesComponent implements OnInit {
   myControl = new FormControl('');
 
   selected = 'Not purchased'
+  selectedSearchURL! : SearchURL;
+
+  searchURLs = URLS;
 
   getGroceries(): void {
     this.groceryService.getGroceries()
@@ -61,6 +65,11 @@ export class GroceriesComponent implements OnInit {
     //.subscribe(_ => this.getGroceries());
     this.groceries = this.groceries.filter(g => g !== grocery);
     this.dataSource.data = this.groceries;
+
+  }
+
+  viewItem(grocery: Grocery): void {
+    window.open(this.selectedSearchURL.url + grocery.ingredient, '_blank');
 
   }
 
