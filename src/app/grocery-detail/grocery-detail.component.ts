@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Observable, of } from 'rxjs';
 
 import { Grocery } from '../grocery';
 import { GroceryService } from '../grocery.service';
@@ -14,6 +15,8 @@ export class GroceryDetailComponent implements OnInit {
 
   @Input() grocery?: Grocery;
 
+  aisles: string[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private groceryService: GroceryService,
@@ -22,6 +25,7 @@ export class GroceryDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGrocery();
+    this.aisles = this.groceryService.aisles;
   }
 
   getGrocery(): void {

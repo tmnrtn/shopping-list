@@ -31,7 +31,7 @@ export class GroceryService {
   ingredientJSON = INGREDIENTS;
 
   ingredients : ingredient[] = [];
-
+  aisles : string[] = [];
 
 
   getGroceries(): Observable<Grocery[]> {
@@ -110,6 +110,10 @@ export class GroceryService {
     }
   }
 
+  GetAisles(): void {
+    this.aisles = [...new Set(this.ingredients.map(i => i.aisle))];
+  }
+
   SearchIngredientsAsync(searchStr:string, exactSearch:boolean = false) : Observable<ingredient[]> {
     return of(this.SearchIngredients(searchStr, exactSearch));
   }
@@ -142,6 +146,7 @@ export class GroceryService {
 
   constructor(private http: HttpClient) {
     this.GetIngredients();
+    this.GetAisles();
    }
 
 }

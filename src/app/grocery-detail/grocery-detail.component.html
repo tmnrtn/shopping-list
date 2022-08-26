@@ -1,24 +1,39 @@
 
 <div *ngIf="grocery">
 
-    <h2>{{grocery.name | uppercase}} Details</h2>
-    <div>
-      <label for="grocery-name">Name: </label>
-      <input id="grocery-name" [(ngModel)]="grocery.name" placeholder="name">
-    </div>
-    <div>
-      <label for="grocery-purchased">Purchased: </label>
-      <input id="grocery-purchased" [(ngModel)]="grocery.purchased" placeholder="purchased">
-    </div>
-    <div>
-      <label for="grocery-aisle">Aisle: </label>
-      <input id="grocery-aisle" [(ngModel)]="grocery.aisle" placeholder="aisle">
-    </div>
-    <div>
-      <label for="grocery-quantity">Quantity: </label>
-      <input id="grocery-quantity" [(ngModel)]="grocery.quantity" placeholder="quantity">
-    </div>
+    <p>
+    <mat-form-field appearance="fill">
+      <mat-label for="grocery-name">Name: </mat-label>
+      <input matInput [(ngModel)]="grocery.name" placeholder="name">
+    </mat-form-field>
+  </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label >Purchased: </mat-label>
+        <mat-select id="grocery-purchased" [(value)]="grocery.purchased" >
+          <mat-option  [value]=true>true</mat-option>
+          <mat-option  [value]=false>false</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label >Aisle: </mat-label>
+        <mat-select id="grocery-aisle" [(value)]="grocery.aisle" >
+          <mat-option *ngFor="let aisle of this.aisles" [value]="aisle">
+            {{aisle}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label >Quantity: </mat-label>
+        <input matInput [(ngModel)]="grocery.quantity" placeholder="quantity">
+      </mat-form-field>
+    </p>
   
   </div>
-  <button #updateButton (click)="updateGrocery()" >Update</button>
-  <button #updateButton (click)="goBack()" >Cancel</button>
+  <button (click)="goBack()" >Cancel</button>
+  <button (click)="updateGrocery()" >Update</button>
+
