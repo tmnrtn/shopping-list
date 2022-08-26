@@ -21,6 +21,7 @@ import { ingredient } from '../ingredient';
 export class GroceriesComponent implements OnInit {
 
   groceries: Grocery[] = [];
+  aisles: string[] = [];
 
   searchRes$!: Observable<ingredient[]>;
   private searchTerms = new Subject<string>();
@@ -63,6 +64,12 @@ export class GroceriesComponent implements OnInit {
 
   }
 
+  onGroceryChange(grocery: Grocery): void {
+    this.groceryService.PostGrocery(grocery).subscribe();
+    this.dataSource.data = this.groceries;
+
+  }
+
 
   search(term: string): void {
     this.searchTerms.next(term);
@@ -97,6 +104,7 @@ export class GroceriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGroceries();
+    this.aisles = this.groceryService.aisles;
 
     this.dataSource.filterPredicate = (data: Grocery, filter: string) => {
       return data.purchased == (filter == "Purchased") || filter == "All";
