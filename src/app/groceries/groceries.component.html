@@ -21,7 +21,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Select Supermarket:</mat-label>
-        <mat-select [(value)]="selectedSearchURL" >
+        <mat-select [(value)]="selectedSearchURL"  (selectionChange)="changeSuperMarket()">
           <mat-option *ngFor="let url of this.searchURLs" [value]="url">{{url.provider}}</mat-option>
         </mat-select>
       </mat-form-field>

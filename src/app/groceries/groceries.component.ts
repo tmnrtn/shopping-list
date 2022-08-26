@@ -1,12 +1,12 @@
-import { Component, OnInit,ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {MatSort, Sort} from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { Grocery } from '../grocery';
 import { GroceryService } from '../grocery.service';
@@ -27,7 +27,7 @@ export class GroceriesComponent implements OnInit {
   searchRes$!: Observable<ingredient[]>;
   private searchTerms = new Subject<string>();
 
-  columnsToDisplay = ['ingredient', 'aisle', 'purchased', 'delete', 'view'];
+  columnsToDisplay = ['ingredient', 'aisle', 'purchased', 'delete'];
   dataSource = new MatTableDataSource<Grocery>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,14 +35,14 @@ export class GroceriesComponent implements OnInit {
   myControl = new FormControl('');
 
   selected = 'Not purchased'
-  selectedSearchURL! : SearchURL;
+  selectedSearchURL!: SearchURL;
 
   searchURLs = URLS;
 
   getGroceries(): void {
     this.groceryService.getGroceries()
       .subscribe(groceries => {
-        this.groceries = groceries; 
+        this.groceries = groceries;
         this.dataSource.data = this.groceries;
       });
 
@@ -88,38 +88,50 @@ export class GroceriesComponent implements OnInit {
     return grocery && grocery.name ? grocery.name[0] : '';
   }
 
-  filterTable():void {
+  filterTable(): void {
     this.dataSource.filter = this.selected;
+  }
+
+  changeSuperMarket(): void {
+    if (this.selectedSearchURL.provider != "None") {
+      this.columnsToDisplay.push("view");
+      this.dataSource.data = this.groceries;
+    }
+    else {
+      this.columnsToDisplay = this.columnsToDisplay.filter(c => c != "view");
+      this.dataSource.data = this.groceries;
+    }
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-    /** Announce the change in sort state for assistive technology. */
-    announceSortChange(sortState: Sort) {
-      // This example uses English messages. If your application supports
-      // multiple language, you would internationalize these strings.
-      // Furthermore, you can customize the message to add additional
-      // details about the values being sorted.
-      if (sortState.direction) {
-        this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-      } else {
-        this._liveAnnouncer.announce('Sorting cleared');
-      }
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
 
   constructor(private groceryService: GroceryService, private _liveAnnouncer: LiveAnnouncer) { }
 
   ngOnInit(): void {
     this.getGroceries();
     this.aisles = this.groceryService.aisles;
+    this.selectedSearchURL = URLS[0];
 
     this.dataSource.filterPredicate = (data: Grocery, filter: string) => {
       return data.purchased == (filter == "Purchased") || filter == "All";
-     };
+    };
 
-     this.filterTable();
+    this.filterTable();
 
     this.searchRes$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
