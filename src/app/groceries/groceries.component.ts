@@ -26,7 +26,7 @@ export class GroceriesComponent implements OnInit {
   searchRes$!: Observable<ingredient[]>;
   private searchTerms = new Subject<string>();
 
-  columnsToDisplay = ['name', 'aisle', 'purchased', 'delete'];
+  columnsToDisplay = ['ingredient', 'aisle', 'purchased', 'delete'];
   dataSource = new MatTableDataSource<Grocery>();
 
   @ViewChild(MatSort) sort!: MatSort;

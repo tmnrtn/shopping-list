@@ -24,9 +24,9 @@
 
 
 <table mat-table  [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"  class="mat-elevation-z8">
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by name">Name</th>
-        <td mat-cell *matCellDef="let grocery"> <a routerLink="/grocerydetail/{{grocery.uid}}">{{grocery.name}}</a></td>
+    <ng-container matColumnDef="ingredient">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by ingredient">Ingredient</th>
+        <td mat-cell *matCellDef="let grocery"> <a routerLink="/grocerydetail/{{grocery.uid}}">{{grocery.ingredient}}</a></td>
     </ng-container>
     <ng-container matColumnDef="aisle">
         <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by aisle">Aisle</th>
@@ -41,15 +41,13 @@
     <ng-container matColumnDef="purchased" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by purchased">Purchased</th>
         <td mat-cell *matCellDef="let grocery">
-            <mat-select id="grocery-purchased" [(value)]="grocery.purchased" (selectionChange)="onGroceryChange(grocery)" >
-                <mat-option  [value]=true>true</mat-option>
-                <mat-option  [value]=false>false</mat-option>
-              </mat-select>
+              <mat-checkbox [(ngModel)]="grocery.purchased" (change)="onGroceryChange(grocery)" >
+              </mat-checkbox>
         </td>
     </ng-container>
     <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef>Delete</th>
-        <td mat-cell *matCellDef="let grocery"><button (click)="deleteItem(grocery)">Delete</button></td>
+        <td mat-cell *matCellDef="let grocery"><button mat-raised-button (click)="deleteItem(grocery)">Delete</button></td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
